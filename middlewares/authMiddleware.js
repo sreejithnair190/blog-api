@@ -18,9 +18,9 @@ exports.protect = catchAsync(async (req, res, next) => {
         return next(new AppError("Not Logged in", 403));
     }
 
-    // const decoded = await promisify(jwt.verify)(token, jwt_secret);
+    const decoded = await promisify(jwt.verify)(token, jwt_secret);
 
-    const currentUser = await User.findOne({where:{id}});
+    const currentUser = await User.findOne({where:{id: decoded.id}});
     if (!currentUser) {
         return next(new AppError("User with this token doesn't exist", 403));
     }
