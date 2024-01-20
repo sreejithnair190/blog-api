@@ -10,7 +10,7 @@ const errorHandler = require("./handlers/errorHandler");
 // Routers
 const userRouter = require('./routes/userRoutes');
 const blogRouter = require('./routes/blogRoutes');
-// const userRouter = require('./routes/userRoutes');
+const commentRouter = require('./routes/commentRoutes');
 
 
 dotenv.config();
@@ -22,12 +22,11 @@ app.use(express.json());
 // Routes
 app.use("/api/users/", userRouter);
 app.use("/api/blogs/", blogRouter);
-// app.use("/api/users/", userRouter);
+app.use("/api/comments/", commentRouter);
 
 
 // Handling unknown routes
 app.all("*", (req, res, next) => {
-  console.log(req.originalUrl);
   next(new AppError(`${req.originalUrl} not found`, 404));
 });
 

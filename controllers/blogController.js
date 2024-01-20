@@ -5,14 +5,13 @@ const { catchAsync, successMessage } = require("./../utils/utils");
 exports.createBlog = catchAsync(async (req, res) => {
   const { title, content } = req.body;
   const blogDetails = { title, content, user_id: req.user.id };
-  console.log(blogDetails);
   const blog = await Blog.create(blogDetails);
   successMessage(res, "Blog created successfully", 201, { blog });
 });
 
 exports.getAllBlogs = catchAsync(async (req, res) => {
   const blogs = await Blog.findAll();
-  successMessage(res, "Blog created successfully", 201, { blogs });
+  successMessage(res, "Blog fetched successfully", 201, { blogs });
 });
 
 exports.getABlog = catchAsync(async (req, res, next) => {
@@ -22,7 +21,7 @@ exports.getABlog = catchAsync(async (req, res, next) => {
     return next(new AppError("Blog not found", 404));
   }
 
-  successMessage(res, "Blog created successfully", 201, { blog });
+  successMessage(res, "Blog fetched successfully", 201, { blog });
 });
 
 exports.updateBlog = catchAsync(async (req, res, next) => {
